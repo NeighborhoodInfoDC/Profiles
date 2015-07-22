@@ -1,0 +1,353 @@
+1                                         The SAS System            10:45 Thursday, April 17, 2014
+
+NOTE: Copyright (c) 2002-2008 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.2 (TS2M3) 
+      Licensed to THE URBAN INSTITUTE, Site 70097024.
+NOTE: This session is executing on the X64_VSPRO  platform.
+
+
+
+NOTE: SAS initialization used:
+      real time           2.38 seconds
+      cpu time            0.20 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is D:\Personal Settings\My SAS Files\V9\Autoexnt.sas.
+
+
+NOTE: AUTOEXEC processing completed.
+
+1          /**************************************************************************
+2           Program:  Test_styles.sas
+3           Library:  Profiles
+4           Project:  NeighborhoodInfo DC
+5           Author:   P. Tatian
+6           Created:  04/16/14
+7           Version:  SAS 9.2
+8           Environment:  Local Windows session (desktop)
+9          
+10          Description:  Test styles for XHTML table output.
+11         
+12          Modifications:
+13         **************************************************************************/
+14         
+15         %include "L:\SAS\Inc\StdLocal.sas";
+NOTE: Libref _METADAT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: L:\Libraries\Metadata\Data
+58        +
+59        +options ls=124 ps=48;    ** Landscape **;
+60        +
+61        +** Output title **;
+62        +
+63        +title "&_library/&_program:  NeighborhoodInfo DC";
+64        +
+65        +** Define General library for local session only **;
+66        +
+67        +%DCData_lib( General, env=windows, macdef=dcautos uiautos sasautos )
+MPRINT(DCDATA_LIB):   options nomprint;
+2 The SAS System                                                                              10:45 Thursday, April 17, 2014
+
+NOTE: Libref GENERA_L was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: D:\DCData\Libraries\General\Data
+NOTE: Libref GENERA_R was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: L:\Libraries\General\Data
+NOTE: Libref GENERAL was successfully assigned as follows: 
+      Levels:           2
+      Engine(1):        V9 
+      Physical Name(1): D:\DCData\Libraries\General\Data
+      Engine(2):        V9 
+      Physical Name(2): L:\Libraries\General\Data
+
+=====================================================================
+Current FmtSearch Option value:
+
+     WORK* LIBRARY* GENERAL
+
+   *implicitly included by default.
+
+=====================================================================
+Status of current catalogs:
+
+NOTE:    WORK.FORMATS DOES NOT EXIST
+NOTE:    LIBRARY.FORMATS DOES NOT EXIST
+NOTE:    GENERAL.FORMATS EXISTS
+=====================================================================
+
+
+=====================================================================
+Current Sasautos Option value:
+
+     GENERA_L DCAUTOS UIAUTOS SASAUTOS
+
+=====================================================================
+
+
+=====================================================================
+Current Sasautos Option value:
+
+     GENERA_L  GENERA_R DCAUTOS UIAUTOS SASAUTOS
+
+=====================================================================
+
+68        +
+69        +%let _userid = %sysfunc( putc( %lowcase(&SYSUSERID), $longusr. ) );
+3 The SAS System                                                                              10:45 Thursday, April 17, 2014
+
+NOTE: %INCLUDE (level 1) ending.
+70         
+71         ** Define libraries **;
+72         %DCData_lib( Profiles, local=n )
+MPRINT(DCDATA_LIB):   options nomprint;
+NOTE: Libref PROFIL_R was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: L:\Libraries\Profiles\Data
+NOTE: Libref PROFILES was successfully assigned as follows: 
+      Levels:           1
+      Engine(1):        V9 
+      Physical Name(1): L:\Libraries\Profiles\Data
+
+=====================================================================
+Current FmtSearch Option value:
+
+     WORK* LIBRARY* GENERAL PROFILES
+
+   *implicitly included by default.
+
+=====================================================================
+Status of current catalogs:
+
+NOTE:    WORK.FORMATS DOES NOT EXIST
+NOTE:    LIBRARY.FORMATS DOES NOT EXIST
+NOTE:    GENERAL.FORMATS EXISTS
+NOTE:    PROFILES.FORMATS DOES NOT EXIST
+=====================================================================
+
+
+=====================================================================
+Current Sasautos Option value:
+
+     PROFIL_R GENERA_L GENERA_R DCAUTOS UIAUTOS SASAUTOS
+
+=====================================================================
+
+73         
+74         
+75         data Test;
+76           input geo_name_bc A:$1. B;
+77           _file_n = geo_name_bc;
+78           datalines;
+
+NOTE: The data set WORK.TEST has 3 observations and 4 variables.
+NOTE: Compressing data set WORK.TEST increased size by 100.00 percent. 
+4 The SAS System                                                                              10:45 Thursday, April 17, 2014
+
+      Compressed is 2 pages; un-compressed would require 1 pages.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+82           ;
+83         run;
+84         
+85         %Style_profile_xhtml( page_name=Page )
+MPRINT(STYLE_PROFILE_XHTML):   ** Create profileXHTML tagset **;
+MPRINT(STYLE_PROFILE_XHTML):   proc template;
+MPRINT(STYLE_PROFILE_XHTML):   path sashelp.tmplmst;
+MPRINT(STYLE_PROFILE_XHTML):   define tagset tagsets.profileXHTML /store=sasuser.templat (write);
+MPRINT(STYLE_PROFILE_XHTML):   parent = Tagsets.Xhtml;
+MPRINT(STYLE_PROFILE_XHTML):   define event doc_head;
+MPRINT(STYLE_PROFILE_XHTML):   start: put "<head>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put VALUE NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<meta name=""Robots"" content=""INDEX"" />" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<meta name=""geo.region"" content=""US-DC"" />" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<meta name=""geo.placename"" content=""Washington"" />" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<meta name=""geo.position"" content=""38.895112;-77.036366"" />" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<meta name=""ICBM"" content=""38.895112, -77.036366"" />" NL;
+MPRINT(STYLE_PROFILE_XHTML):   finish: put NL "<!-- Google Analytics code -->" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<script type=""text/javascript"">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "  var _gaq = _gaq || [];" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "  _gaq.push(['_setAccount', 'UA-7017847-1']);" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "  _gaq.push(['_trackPageview']);" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "  (function() {" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = 
+true;" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + 
+'.google-analytics.com/ga.js';" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, 
+s);" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "  })();" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "</script>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "</head>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   end;
+MPRINT(STYLE_PROFILE_XHTML):   define event doc;
+MPRINT(STYLE_PROFILE_XHTML):   start: set $empty_tag_suffix " /";
+MPRINT(STYLE_PROFILE_XHTML):   set $doctype "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Transitional//EN""" "    
+5 The SAS System                                                                              10:45 Thursday, April 17, 2014
+
+""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"">";
+MPRINT(STYLE_PROFILE_XHTML):   set $framedoctype "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Frameset//EN"">";
+MPRINT(STYLE_PROFILE_XHTML):   put $doctype NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<html xmlns=""http://www.w3.org/1999/xhtml"">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   finish: put "</html>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   end;
+MPRINT(STYLE_PROFILE_XHTML):   define event contents;
+MPRINT(STYLE_PROFILE_XHTML):   start: put $doctype NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<html xmlns=""http://www.w3.org/1999/xhtml"">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   finish: put "</html>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   end;
+MPRINT(STYLE_PROFILE_XHTML):   define event doc_body;
+MPRINT(STYLE_PROFILE_XHTML):   put "<body onload=""startup()""";
+MPRINT(STYLE_PROFILE_XHTML):   put " onunload=""shutdown()""";
+MPRINT(STYLE_PROFILE_XHTML):   put " bgproperties=""fixed""" / WATERMARK;
+MPRINT(STYLE_PROFILE_XHTML):   putq " background=" BACKGROUNDIMAGE;
+MPRINT(STYLE_PROFILE_XHTML):   trigger style_inline;
+MPRINT(STYLE_PROFILE_XHTML):   put ">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   trigger pre_post;
+MPRINT(STYLE_PROFILE_XHTML):   put NL;
+MPRINT(STYLE_PROFILE_XHTML):   trigger ie_check;
+MPRINT(STYLE_PROFILE_XHTML):   put "<div id=""container"">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put NL "<!-- BANNER AND NAV BAR -->" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<div id=""banner"" title=""NeighborhoodInfo DC"">";
+MPRINT(STYLE_PROFILE_XHTML):   put "<a href=""../index.html"">";
+MPRINT(STYLE_PROFILE_XHTML):   put "<img src=""../images/neighborhoodinfodc.gif"" width=""920"" height=""88"" 
+alt=""NeighorhoodInfo DC banner""/></a></div>";
+MPRINT(STYLE_PROFILE_XHTML):   put "<div id=""navbar"" style=""background-color: #c98d95"">";
+MPRINT(STYLE_PROFILE_XHTML):   put "<a href=""../index.html"">Home</a>";
+MPRINT(STYLE_PROFILE_XHTML):   put "<a href=""../about.html"">About Us</a>";
+MPRINT(STYLE_PROFILE_XHTML):   put "<a href=""../profiles.html"" class=""highlight"">Neighborhood Profiles</a>";
+MPRINT(STYLE_PROFILE_XHTML):   put "<a href=""../Housing/index.html"">Housing</a>";
+MPRINT(STYLE_PROFILE_XHTML):   put "<a href=""../maps.html"">Maps</a>";
+MPRINT(STYLE_PROFILE_XHTML):   put "<a href=""../resources.html"">Resources</a>";
+MPRINT(STYLE_PROFILE_XHTML):   put "<a href=""../Maryland/index.html"">Maryland</a>";
+MPRINT(STYLE_PROFILE_XHTML):   put "<a href=""../Questions.html"" class=""no_pipe"">Ask a Question</a>";
+MPRINT(STYLE_PROFILE_XHTML):   put "</div>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<div class=""branch"" style=""padding-left:10px"">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   finish: put "<div id=""footer"" align=""center"" style=""margin:0; padding:0; "">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<div style=""background-color:#c98d95; padding: 12px 0; font-weight: bold;"">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put ' Neighborhood Info DC &mdash;a project of The Urban Institute and Washington DC Local 
+Initiatives Support Corporation (LISC)<br />' NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "P: 202-261-5760 / E: <a 
+href=""mailto:info@neighborhoodinfodc.org"">info@neighborhoodinfodc.org</a> </div>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<table width=""50%"" border=""0"" align=""center"" cellpadding=""4"" 
+cellspacing=""0"">" NL;
+6 The SAS System                                                                              10:45 Thursday, April 17, 2014
+
+MPRINT(STYLE_PROFILE_XHTML):   put "<tr valign=""top"">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<td width=""50%"" align=""center"">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<a href=""http://www.urban.org""><img src=""../images/UI-logo-small.png"" alt=""Urban 
+Institute logo"" width=""130"" height=""38"" border=""0"" /></a><br />" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "    2100 M Street, NW<br />" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "    Washington, DC 20037</td>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "<td width=""50%"" align=""center"">" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "  <a href=""http://www.lisc.org/washingtondc/""><img src=""../images/LISC.png"" 
+alt=""LISC logo"" width=""66"" height=""37"" border=""0"" /></a><br />" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "    1825 K Street NW Suite 1100<br />" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "    Washington, DC 20006</td>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "</tr>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "</table>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "  </div>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "</div>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "</div>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   put "</div>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   trigger pre_post;
+MPRINT(STYLE_PROFILE_XHTML):   put "</body>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   end;
+MPRINT(STYLE_PROFILE_XHTML):   define event data;
+MPRINT(STYLE_PROFILE_XHTML):   start: put "<td";
+MPRINT(STYLE_PROFILE_XHTML):   putq " id=" HTMLID;
+MPRINT(STYLE_PROFILE_XHTML):   putq " headers=" headers /if $header_data_associations;
+MPRINT(STYLE_PROFILE_XHTML):   trigger rowcol;
+MPRINT(STYLE_PROFILE_XHTML):   trigger align;
+MPRINT(STYLE_PROFILE_XHTML):   put " nowrap=""nowrap""" /if no_wrap;
+MPRINT(STYLE_PROFILE_XHTML):   put ">";
+MPRINT(STYLE_PROFILE_XHTML):   trigger cell_value;
+MPRINT(STYLE_PROFILE_XHTML):   finish: trigger cell_value;
+MPRINT(STYLE_PROFILE_XHTML):   put "</td>" NL;
+MPRINT(STYLE_PROFILE_XHTML):   end;
+MPRINT(STYLE_PROFILE_XHTML):   end;
+NOTE: TAGSET 'Tagsets.profileXHTML' has been saved to: SASUSER.TEMPLAT
+NOTE: PROCEDURE TEMPLATE used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.03 seconds
+      
+
+MPRINT(STYLE_PROFILE_XHTML):   run;
+86         
+87         %let html_out = L:\Libraries\Profiles\Html\test\Test_styles.html;
+88         %let prof_title = Test page;
+89         
+90           ods tagsets.profileXhtml
+91             file="&html_out" (title="&prof_title - NeighborhoodInfo DC")
+7 The SAS System                                                                              10:45 Thursday, April 17, 2014
+
+92             newfile=page
+93             stylesheet=(url='../stylesheet_home.css ../stylesheet_pr.css')
+94             ;
+NOTE: Writing TAGSETS.PROFILEXHTML Body file: L:\Libraries\Profiles\Html\test\Test_styles.html
+95         
+96           ods listing close;
+97         
+98           options nobyline;
+99         
+100        proc report list data=Test nowd split="*"
+101            style(header)=[font_size=3];
+102            by _file_n geo_name_bc;
+103            column A;
+104            column B;
+105        
+106        title2 "<!--BREADCRUMBS-->"
+107        "<small><a href=""../index.html"">Home</a><img src=""../images/right-arrow.gif"" width=""16"" height=""10""
+107      ! border=""0"" hspace=""2"" alt=""Right arrow"" />"
+108        "<a href=""../profiles.html"">Profiles</a><img src=""../images/right-arrow.gif"" width=""16"" height=""10""
+108      ! border=""0"" hspace=""2"" alt=""Right arrow"" />"
+109        "<a href=""wards.html"">2012 Wards</a><img src=""../images/right-arrow.gif"" width=""16"" height=""10""
+109      ! border=""0"" hspace=""2"" alt=""Right arrow"" />"
+110        "#byval( geo_name_bc )"
+111        "</small>";
+112        
+113        title3
+114        "<dl id=""navigation"">"
+115        "<dt id=""selected""><span>Population</span></dt>"
+116        "<dt><a href=""Nbr_prof_wrdb#byval(_file_n)..html""><span>Well-Being</span></a></dt>"
+117        "<dt><a href=""Nbr_prof_wrdc#byval(_file_n)..html""><span>Housing</span></a></dt>"
+118        "<dt><a href=""Nbr_prof_wrdd#byval(_file_n)..html""><span>Foreclosures</span></a></dt>"
+119        "<dt><a href=""Nbr_prof_wrde#byval(_file_n)..html""><span>Schools</span></a></dt>"
+120        "</dl><img src=""../images/h-line.gif"" width=""829"" height=""1"" border=""0"" align=""left"" hspace=""0""
+120      ! vspace=""0"" />"
+121        ;
+122        run;
+
+PROC REPORT DATA=WORK.TEST LS=124 PS=48  SPLIT="*" NOCENTER ;
+COLUMN  ( A ) ( B );
+ 
+DEFINE  A / DISPLAY FORMAT= $1. WIDTH=1     SPACING=2   LEFT "A" ;
+DEFINE  B / SUM FORMAT= BEST9. WIDTH=9     SPACING=2   RIGHT "B" ;
+RUN;
+
+NOTE: There were 3 observations read from the data set WORK.TEST.
+NOTE: PROCEDURE REPORT used (Total process time):
+8 The SAS System                                                                              10:45 Thursday, April 17, 2014
+
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+123        
+124        ods tagsets.profileXhtml close;
+125        ods listing;
+126        
+127        
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           5.05 seconds
+      cpu time            0.56 seconds
+      

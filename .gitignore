@@ -1,0 +1,56 @@
+# Library specific
+Html/
+Rtf/
+Prog/Old/
+
+# DCData subfolders 
+Data/
+Maps/
+Raw/
+
+# SAS files
+*.sas7bdat
+*.sas7bcat
+
+# Web
+*.html
+*.htm
+
+# MS Office
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.mdb
+*.mdbx
+*.pdf
+
+# Raw files
+*.csv
+*.xml
+
+# Image files
+*.gif
+*.jpg
+*.jpeg
+*.bmp
+*.tiff
+
+# ArcMap
+*.dbf
+*.mxd
+*.shp
+*.prj
+*.sbn
+*.sbx
+*.shx
+*.lyr
+
+# Archives
+*.zip
+*.rar
+
+# Temporary
+*.bak
