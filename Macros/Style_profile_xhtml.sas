@@ -36,6 +36,7 @@
   03/28/14 PAT Updated for new SAS1 server.
   04/16/14 PAT Write revised template to LOG (SOURCE statement). 
   04/17/14 PAT Commented out SOURCE statement. 
+  03/30/15 MSW Updated footer
 **************************************************************************/
 
 /** Macro Style_profile_xhtml - Start Definition **/
@@ -143,9 +144,44 @@
            put "<div class=""branch"" style=""padding-left:10px"">" NL;
            
         finish:
-        
+
+          /**New footer: 3/30/15**/
+		put "<div id=""select_footer"">" NL;
+		put "<!-- Links to different geographies -->" NL;
+		put "<p>" NL;
+		put "<a href=""../city/nbr_prof_city.html"">City </a>|" NL;
+		put "<a href=""../wards/wards.html"">Wards (2012)</a> |" NL;
+		put "<a href=""../wards02/wards.html"">Wards (2002)</a> |" NL;
+		put "<a href=""../anc12/anc.html"">ANCs</a> |" NL;
+		put "<a href=""../nclusters/nclusters.html"">Neighborhood Clusters</a> |" NL;
+		put "<a href=""../psa12/psa.html"">PSAs</a> |" NL;
+		put "<a href=""../zip/zip.html"">ZIP codes</a> |" NL;
+		put "<a href=""../censustract10/census.html"">Census Tracts (2010)</a> |" NL;
+		put "<a href=""../censustract/census.html"">Census Tracts (2000)</a> |" NL;
+		put "<a href=""../comparisontables/comparisontables.html"">Download Data</a>" NL;
+		put "</p>" NL;
+		put "</div>" NL;
+		put "<div id=""footer"" align=""center"" style=""margin:0; padding:0;"">" NL;
+		put "<div style=""background-color:#c98d95; padding: 12px 0; font-weight: bold;"">" NL;
+		put "	Neighborhood Info DC &mdash;a project of the Urban Institute and a partner of the National Neighborhood Indicators Partnership.<br />" NL;
+		put "	P: 202-643-4110 / E:<a href=""mailto:info@neighborhoodinfodc.org"">info@neighborhoodinfodc.org</a><br />" NL;
+		put "<a href=""https://twitter.com/NborhoodInfoDC"" class=""twitter-follow-button"" data-show-count=""false"">Follow @NborhoodInfoDC</a>" NL;
+		put "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id))";
+		put "{js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>" NL;
+		put "</div>" NL;
+		put "<table width=""50%"" border=""0"" align=""center"" cellpadding=""4"" cellspacing=""0"">" NL;
+		put "<tr valign=""top"">" NL;
+		put "<td width=""100%"" align=""center"">" NL;
+		put "<a href=""http://www.urban.org""><img src=""../images/new_urban_logo.png"" alt=""Urban Institute logo"" width=""400"" height=""17"" border=""0"" /></a><br />" NL;
+		put "</td>" NL;
+		put "</tr>" NL;
+		put "</table>" NL;
+
+		put "</div>" NL;
+
+
            /** New footer: 8/5/11 **/
-           put "<div id=""footer"" align=""center"" style=""margin:0; padding:0; "">" NL;
+          /*put "<div id=""footer"" align=""center"" style=""margin:0; padding:0; "">" NL;
            put "<div style=""background-color:#c98d95; padding: 12px 0; font-weight: bold;"">" NL;
            put ' Neighborhood Info DC &mdash;a project of The Urban Institute and Washington DC Local Initiatives Support Corporation (LISC)<br />' NL;
            put "P: 202-261-5760 / E: <a href=""mailto:info@neighborhoodinfodc.org"">info@neighborhoodinfodc.org</a> </div>" NL;
@@ -169,7 +205,7 @@
 
            trigger pre_post;
 
-           put "</body>" NL;
+           put "</body>" NL;*/
      
       end;
 
