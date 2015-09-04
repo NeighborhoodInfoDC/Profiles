@@ -11,6 +11,8 @@ Raw/
 # SAS files
 *.sas7bdat
 *.sas7bcat
+*.log
+*.lst
 
 # Web
 *.html
@@ -26,6 +28,7 @@ Raw/
 *.mdb
 *.mdbx
 *.pdf
+*.rtf
 
 # Raw files
 *.csv
