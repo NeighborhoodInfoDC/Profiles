@@ -34,6 +34,7 @@
   03/28/14 PAT  Updated for new SAS1 server.
   04/29/14 SXZ Added FS and TANF data for 2014, 2013 schools data 
   03/10/15 MSW Added data for seniors
+  05/27/16 RP Update with new ACS and Sales data
 **************************************************************************/
 
 /** Macro Init_nbr_prof_vars - Start Definition **/
@@ -84,7 +85,7 @@
   %let fs_tanf_start_yr = 2000;
   %let fs_tanf_end_yr = 2014;
   %let rsales_start_yr = 1995;
-  %let rsales_end_yr = 2013;
+  %let rsales_end_yr = 2015;
   %let hmda_start_yr = 1997;
   %let hmda_end_yr = 2006;
   %let crime_start_yr = 2000;
@@ -97,6 +98,10 @@
   %let enroll_start_yr = 2001;
   %let enroll_end_yr = 2013;
   **************************;
+
+  %** UPDATE WITH CORRECT YEARS FOR ACS DATA AVAILABLE;
+  %let acsyr = 2010_14;
+
   
   %****** Profile tab specifications ******;
   
@@ -128,9 +133,9 @@
           PctAsianPINonHispBridge_1990 PctAsianPINonHispBridge_2000 
           PctAsianPINonHispBridge_2010
         Sec_1_Foreign
-          PctForeignBorn_1980 PctForeignBorn_1990 PctForeignBorn_2000 PctForeignBorn_2008_12
+          PctForeignBorn_1980 PctForeignBorn_1990 PctForeignBorn_2000 PctForeignBorn_&acsyr.
         Sec_1_Families
-          PctFamiliesOwnChildrenFH_1990 PctFamiliesOwnChildrenFH_2000 PctFamiliesOwnChildrenFH_2008_12
+          PctFamiliesOwnChildrenFH_1990 PctFamiliesOwnChildrenFH_2000 PctFamiliesOwnChildrenFH_&acsyr.
         Sec_1_Births_low
           %Rep_var( var=Pct_births_low_wt, from=&births_start_yr, to=&births_end_yr )
         Sec_1_Births_teen
@@ -149,8 +154,8 @@
               );
 
   %let prof_moe_col1 = 
-         PctForeignBorn_m_2008_12=PctForeignBorn_2008_12
-         PctFamiliesOwnChildFH_m_2008_12=PctFamiliesOwnChildrenFH_2008_12
+         PctForeignBorn_m_&acsyr.=PctForeignBorn_&acsyr.
+         PctFamiliesOwnChildFH_m_&acsyr.=PctFamiliesOwnChildrenFH_&acsyr.
        ;
 
   %let prof_notes1 = ;
@@ -159,23 +164,23 @@
 
   %let prof_vars2 = 
         Sec_2_Poverty
-          PctPoorPersons_1980 PctPoorPersons_1990 PctPoorPersons_2000 PctPoorPersons_2008_12
-          PctPoorChildren_1990 PctPoorChildren_2000 PctPoorChildren_2008_12
-		  PctPoorElderly_1990 PctPoorElderly_2000 PctPoorElderly_2008_12
+          PctPoorPersons_1980 PctPoorPersons_1990 PctPoorPersons_2000 PctPoorPersons_&acsyr.
+          PctPoorChildren_1990 PctPoorChildren_2000 PctPoorChildren_&acsyr.
+		  PctPoorElderly_1990 PctPoorElderly_2000 PctPoorElderly_&acsyr.
         Sec_2_Employment
-          PctUnemployed_1980 PctUnemployed_1990 PctUnemployed_2000 PctUnemployed_2008_12
+          PctUnemployed_1980 PctUnemployed_1990 PctUnemployed_2000 PctUnemployed_&acsyr.
           Pct16andOverEmployed_1980 Pct16andOverEmployed_1990 Pct16andOverEmployed_2000 
-          Pct16andOverEmployed_2008_12
+          Pct16andOverEmployed_&acsyr.
         Sec_2_Education
           Pct25andOverWoutHS_1980 Pct25andOverWoutHS_1990 Pct25andOverWoutHS_2000 
-          Pct25andOverWoutHS_2008_12
+          Pct25andOverWoutHS_&acsyr.
         Sec_2_Isolat
-          PctHshldPhone_2000 PctHshldPhone_2008_12
-          PctHshldCar_2000 PctHshldCar_2008_12
+          PctHshldPhone_2000 PctHshldPhone_&acsyr.
+          PctHshldCar_2000 PctHshldCar_&acsyr.
         Sec_2_Inc
-          AvgFamilyIncAdj_1980 AvgFamilyIncAdj_1990 AvgFamilyIncAdj_2000 AvgFamilyIncAdj_2008_12
+          AvgFamilyIncAdj_1980 AvgFamilyIncAdj_1990 AvgFamilyIncAdj_2000 AvgFamilyIncAdj_&acsyr.
           PctChgAvgFamilyIncAdj_1980_1990 PctChgAvgFamilyIncAdj_1990_2000 
-          PctChgAvgFamilyIncA_2000_2008_12
+          PctChgAvgFamilyIncA_2000_&acsyr.
         Sec_2_FS
           %Rep_var( var=fs_client, from=&fs_tanf_start_yr, to=&fs_tanf_end_yr )
         Sec_2_Tanf
@@ -199,16 +204,16 @@
               );
 
   %let prof_moe_col2 = 
-         PctPoorPersons_m_2008_12=PctPoorPersons_2008_12
-         PctPoorChildren_m_2008_12=PctPoorChildren_2008_12
-		 PctPoorElderly_m_2008_12=PctPoorElderly_2008_12
-         PctUnemployed_m_2008_12=PctUnemployed_2008_12
-         Pct16andOverEmployed_m_2008_12=Pct16andOverEmployed_2008_12
-         Pct25andOverWoutHS_m_2008_12=Pct25andOverWoutHS_2008_12
-         PctHshldPhone_m_2008_12=PctHshldPhone_2008_12
-         PctHshldCar_m_2008_12=PctHshldCar_2008_12
-         AvgFamilyIncAdj_m_2008_12=AvgFamilyIncAdj_2008_12
-         PctChgAvgFamIncA_m_2000_2008_12=PctChgAvgFamilyIncA_2000_2008_12
+         PctPoorPersons_m_&acsyr.=PctPoorPersons_&acsyr.
+         PctPoorChildren_m_&acsyr.=PctPoorChildren_&acsyr.
+		 PctPoorElderly_m_&acsyr.=PctPoorElderly_&acsyr.
+         PctUnemployed_m_&acsyr.=PctUnemployed_&acsyr.
+         Pct16andOverEmployed_m_&acsyr.=Pct16andOverEmployed_&acsyr.
+         Pct25andOverWoutHS_m_&acsyr.=Pct25andOverWoutHS_&acsyr.
+         PctHshldPhone_m_&acsyr.=PctHshldPhone_&acsyr.
+         PctHshldCar_m_&acsyr.=PctHshldCar_&acsyr.
+         AvgFamilyIncAdj_m_&acsyr.=AvgFamilyIncAdj_&acsyr.
+         PctChgAvgFamIncA_m_2000_&acsyr.=PctChgAvgFamilyIncA_2000_&acsyr.
        ;
 
   %let prof_notes2 = ;
@@ -223,10 +228,10 @@
           PctSameHouse5YearsAgo_1990 PctSameHouse5YearsAgo_2000
         Sec_3_Vacant
           PctVacantHsgUnitsForRent_1980 PctVacantHsgUnitsForRent_1990 PctVacantHsgUnitsForRent_2000
-          PctVacantHsgUnitsForRent_2008_12
+          PctVacantHsgUnitsForRent_&acsyr.
         Sec_3_Owner
           PctOwnerOccupiedHsgUnits_1980 PctOwnerOccupiedHsgUnits_1990 PctOwnerOccupiedHsgUnits_2000
-          PctOwnerOccupiedHsgUnits_2008_12
+          PctOwnerOccupiedHsgUnits_&acsyr.
         Sec_3_Sales
           %Rep_var( var=sales_sf, from=&rsales_start_yr, to=&rsales_end_yr )
         Sec_3_Price
@@ -255,8 +260,8 @@
               );
 
   %let prof_moe_col3 = 
-    PctVacantHUForRent_m_2008_12=PctVacantHsgUnitsForRent_2008_12
-    PctOwnerOccupiedHU_m_2008_12=PctOwnerOccupiedHsgUnits_2008_12;
+    PctVacantHUForRent_m_&acsyr.=PctVacantHsgUnitsForRent_&acsyr.
+    PctOwnerOccupiedHU_m_&acsyr.=PctOwnerOccupiedHsgUnits_&acsyr.;
 
   %let prof_notes3 = ;
 
