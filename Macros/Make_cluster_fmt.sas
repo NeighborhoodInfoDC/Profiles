@@ -13,7 +13,12 @@
   11/19/12 PAT  Profiles 2.0, final production version.
   03/28/14 PAT  Updated for new SAS1 server.
 **************************************************************************/
+/**KA - 5/31 removed/edited the following for formatting issues
 
+Label=
+      trim( cluster_num || "<br /><small>" || put( ward2002, $ward02a. ) ||
+      " / " || trim( nbh_names ) || "</small>" )
+**/
 /** Macro Make_cluster_fmt - Start Definition **/
 
 %macro Make_cluster_fmt( fmt= );
@@ -24,8 +29,7 @@
     Data=General.Cluster2000,
     Value=cluster2000,
     Label=
-      trim( cluster_num ) || "<br /><small>" || put( ward2002, $ward02a. ) ||
-      " / " || trim( nbh_names ) || "</small>" ,
+      trim( cluster_num ),
     OtherLabel=' ',
     DefaultLen=.,
     MaxLen=.,

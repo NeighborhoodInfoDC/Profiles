@@ -378,7 +378,7 @@
         </tr>"
       "</table>";
 
-    title7 bold height=16pt "#byval( &geo_var )";
+    *title7 bold height=16pt "#byval( &geo_var )";
     
     footnote1 height=10pt "Notes:";
     footnote2 height=10pt "i = Insufficient data; s = Suppressed proprietary or confidential data.";
