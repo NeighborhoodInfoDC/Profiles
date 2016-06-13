@@ -163,7 +163,7 @@
     label
       PctChgTotPop_1980_1990 = "% change population, 1980 to 1990"
       PctChgTotPop_1990_2000 = "% change population, 1990 to 2000"
-      PctChgTotPop_2000_2010_14 = "% change population, 2000 to 2008-12"
+      PctChgTotPop_2000_2010_14 = "% change population, 2000 to 2010-14"
       PctChgTotPop_2000_2010 = "% change population, 2000 to 2010"
       ;
       
@@ -283,7 +283,7 @@
       AvgFamilyIncAdj_1980 = "Avg. family income, 1979"
       AvgFamilyIncAdj_1990 = "Avg. family income, 1989"
       AvgFamilyIncAdj_2000 = "Avg. family income, 1999"
-      AvgFamilyIncAdj_2010_14 = "Avg. family income, 2008-12"
+      AvgFamilyIncAdj_2010_14 = "Avg. family income, 2010-14"
       ;
       
     AvgFamilyIncome_m_2010_14 = 
@@ -299,7 +299,7 @@
     label
       PctChgAvgFamilyIncAdj_1980_1990 = "% change in avg. family income, 1980 to 1990"
       PctChgAvgFamilyIncAdj_1990_2000 = "% change in avg. family income, 1990 to 2000"
-      PctChgAvgFamilyIncA_2000_2010_14 = "% change in avg. family income, 2000 to 2008-12"
+      PctChgAvgFamilyIncA_2000_2010_14 = "% change in avg. family income, 2000 to 2010-14"
       ;
     
     PctChgAvgFamIncA_m_2000_2010_14 = AvgFamilyIncAdj_m_2010_14 / AvgFamilyIncAdj_2000;
