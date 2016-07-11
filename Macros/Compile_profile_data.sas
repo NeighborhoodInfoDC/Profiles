@@ -32,6 +32,7 @@
   03/28/14 PAT  Updated for new SAS1 server.
   03/10/14 MSW Added Senior Data
   05/27/16 RP Update with new ACS and Sales data
+  07/01/16 RP Update with 2012-2015 crime data
 **************************************************************************/
 
 /** Macro Compile_profile_data - Start Definition **/

@@ -35,6 +35,7 @@
   04/29/14 SXZ Added FS and TANF data for 2014, 2013 schools data 
   03/10/15 MSW Added data for seniors
   05/27/16 RP Update with new ACS and Sales data
+  07/01/16 RP Update with 2012-2015 crime data
 **************************************************************************/
 
 /** Macro Init_nbr_prof_vars - Start Definition **/
@@ -83,13 +84,13 @@
   %let births_start_yr = 1998;
   %let births_end_yr = 2011;
   %let fs_tanf_start_yr = 2000;
-  %let fs_tanf_end_yr = 2014;
+  %let fs_tanf_end_yr = 2015;
   %let rsales_start_yr = 1995;
   %let rsales_end_yr = 2015;
   %let hmda_start_yr = 1997;
   %let hmda_end_yr = 2006;
   %let crime_start_yr = 2000;
-  %let crime_end_yr = 2011;
+  %let crime_end_yr = 2015;
   %let inc_dollar_yr = 2010;
   %let fcl_start_yr = 1995;
   %let fcl_end_yr = 2013;
