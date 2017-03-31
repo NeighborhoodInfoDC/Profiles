@@ -36,6 +36,7 @@
   03/10/15 MSW Added data for seniors
   05/27/16 RP Update with new ACS and Sales data
   07/01/16 RP Update with 2012-2015 crime data
+  03/07/17 RP Update with 2011-2015 ACS, 2016 crime, and 2016 sales data. 
 **************************************************************************/
 
 /** Macro Init_nbr_prof_vars - Start Definition **/
@@ -78,7 +79,8 @@
   %global births_start_yr births_end_yr fs_tanf_start_yr fs_tanf_end_yr 
           rsales_start_yr rsales_end_yr hmda_start_yr hmda_end_yr 
           crime_start_yr crime_end_yr inc_dollar_yr
-          fcl_start_yr fcl_end_yr msf_start_yr msf_end_yr enroll_start_yr enroll_end_yr;
+          fcl_start_yr fcl_end_yr msf_start_yr msf_end_yr enroll_start_yr enroll_end_yr
+		  acs_start_yr acs_end_yr acs_infl_yr acsyr;
   
   %** UPDATE WITH CORRECT YEARS FOR LATEST DATA AVAILABLE;
   %let births_start_yr = 1998;
@@ -86,11 +88,11 @@
   %let fs_tanf_start_yr = 2000;
   %let fs_tanf_end_yr = 2015;
   %let rsales_start_yr = 1995;
-  %let rsales_end_yr = 2015;
+  %let rsales_end_yr = 2016;
   %let hmda_start_yr = 1997;
   %let hmda_end_yr = 2006;
   %let crime_start_yr = 2000;
-  %let crime_end_yr = 2015;
+  %let crime_end_yr = 2016;
   %let inc_dollar_yr = 2010;
   %let fcl_start_yr = 1995;
   %let fcl_end_yr = 2013;
@@ -101,7 +103,12 @@
   **************************;
 
   %** UPDATE WITH CORRECT YEARS FOR ACS DATA AVAILABLE;
-  %let acsyr = 2010_14;
+  %let acs_start_yr = 2011;	**Four digit year for ACS end year **;
+  %let acs_end_yr = 15;	**Two digit only for ACS end year **;
+  %let acs_infl_yr= 2015; ** Four digit  for ACS end year **;
+
+  %let acsyr = &acs_start_yr._&acs_end_yr.; 
+  
 
   
   %****** Profile tab specifications ******;

@@ -33,6 +33,7 @@
   03/10/14 MSW Added Senior Data
   05/27/16 RP Update with new ACS and Sales data
   07/01/16 RP Update with 2012-2015 crime data
+  03/07/17 RP Update with 2011-2015 ACS, 2016 crime, and 2016 sales data. 
 **************************************************************************/
 
 /** Macro Compile_profile_data - Start Definition **/
@@ -74,7 +75,7 @@
            PopWhiteNonHispBridge: PopHisp: PopAsianPINonHispBridge:
            PopOtherRaceNonHispBridge: 
            NumOccupiedHsgUnits: )
-      ACS.Acs_2010_14_sum_bg&geosuf
+      ACS.Acs_&acsyr._sum_tr&geosuf
         (keep=&geo TotPop: mTotPop: PopUnder18Years: mPopUnder18Years: Pop65andOverYears: mPop65andOverYears:
 		   PopWithRace: PopBlackNonHispBridge:
            PopWhiteNonHispBridge: PopHisp: PopAsianPINonHispBridge:
@@ -89,7 +90,7 @@
            NumRenterHsgUnits: mNumRenterHsgUnits:
            NumVacantHsgUnitsForRent: mNumVacantHUForRent: 
            NumOwnerOccupiedHsgUnits: mNumOwnerOccupiedHU: )
-      ACS.Acs_2010_14_sum_tr&geosuf
+      ACS.Acs_&acsyr._sum_tr&geosuf
         (keep=&geo TotPop: mTotPop: 
            PopForeignBorn: mPopForeignBorn: 
            PersonsPovertyDefined: mPersonsPovertyDefined:
@@ -104,7 +105,7 @@
            PopPoorChildren: mPopPoorChildren: 
 		   PopPoorElderly: mPopPoorElderly:
 		   ElderlyPovertyDefined: mElderlyPovertyDefined: 
-         rename=(TotPop_2010_14=TotPop_tr_2010_14 mTotPop_2010_14=mTotPop_tr_2010_14))
+         rename=(TotPop_&acsyr.=TotPop_tr_&acsyr. mTotPop_&acsyr.=mTotPop_tr_&acsyr.))
       Vital.Births_sum&geosuf
         (keep=&geo Births_w_weight: Births_low_wt: Births_w_age: Births_teen: )
       RealProp.Sales_sum&geosuf
@@ -158,152 +159,152 @@
     
     if TotPop_1980 > 0 then PctChgTotPop_1980_1990 = %pctchg( TotPop_1980, TotPop_1990 );
     if TotPop_1990 > 0 then PctChgTotPop_1990_2000 = %pctchg( TotPop_1990, TotPop_2000 );
-    if TotPop_2000 > 0 then PctChgTotPop_2000_2010_14 = %pctchg( TotPop_2000, TotPop_2010_14 );
+    if TotPop_2000 > 0 then PctChgTotPop_2000_&acsyr. = %pctchg( TotPop_2000, TotPop_&acsyr. );
     if TotPop_2000 > 0 then PctChgTotPop_2000_2010 = %pctchg( TotPop_2000, TotPop_2010 );
     
     label
       PctChgTotPop_1980_1990 = "% change population, 1980 to 1990"
       PctChgTotPop_1990_2000 = "% change population, 1990 to 2000"
-      PctChgTotPop_2000_2010_14 = "% change population, 2000 to 2010-14"
+      PctChgTotPop_2000_&acsyr. = "% change population, 2000 to &acs_start_yr.-&acs_end_yr."
       PctChgTotPop_2000_2010 = "% change population, 2000 to 2010"
       ;
       
-    %Pct_calc( var=PctPopUnder18Years, label=% children, num=PopUnder18Years, den=TotPop, years=1980 1990 2000 2010_14 2010 )
+    %Pct_calc( var=PctPopUnder18Years, label=% children, num=PopUnder18Years, den=TotPop, years=1980 1990 2000 &acsyr. 2010 )
     
-    %Moe_prop_a( var=PctPopUnder18Years_m_2010_14, mult=100, num=PopUnder18Years_2010_14, den=TotPop_2010_14, 
-                       num_moe=mPopUnder18Years_2010_14, den_moe=mTotPop_2010_14 );
+    %Moe_prop_a( var=PctPopUnder18Years_m_&acsyr., mult=100, num=PopUnder18Years_&acsyr., den=TotPop_&acsyr., 
+                       num_moe=mPopUnder18Years_&acsyr., den_moe=mTotPop_&acsyr. );
     
     if PopUnder18Years_1980 > 0 then PctChgPopUnder18Years_1980_1990 = %pctchg( PopUnder18Years_1980, PopUnder18Years_1990 );
     if PopUnder18Years_1990 > 0 then PctChgPopUnder18Years_1990_2000 = %pctchg( PopUnder18Years_1990, PopUnder18Years_2000 );
-    if PopUnder18Years_2000 > 0 then PctChgPopUnder18Yea_2000_2010_14 = %pctchg( PopUnder18Years_2000, PopUnder18Years_2010_14 );
+    if PopUnder18Years_2000 > 0 then PctChgPopUnder18Yea_2000_&acsyr. = %pctchg( PopUnder18Years_2000, PopUnder18Years_&acsyr. );
     if PopUnder18Years_2000 > 0 then PctChgPopUnder18Yea_2000_2010 = %pctchg( PopUnder18Years_2000, PopUnder18Years_2010 );
         
     label
       PctChgPopUnder18Years_1980_1990 = "% change child population, 1980 to 1990"
       PctChgPopUnder18Years_1990_2000 = "% change child population, 1990 to 2000"
-      PctChgPopUnder18Yea_2000_2010_14 = "% change child population, 2000 to 2010-2014"
+      PctChgPopUnder18Yea_2000_&acsyr. = "% change child population, 2000 to &acs_start_yr.-&acs_end_yr."
       PctChgPopUnder18Yea_2000_2010 = "% change child population, 2000 to 2010"
     ;
       
-	%Pct_calc( var=PctPop65andOverYears, label=% seniors, num=Pop65andOverYears, den=TotPop, years=1980 1990 2000 2010_14 2010 )
+	%Pct_calc( var=PctPop65andOverYears, label=% seniors, num=Pop65andOverYears, den=TotPop, years=1980 1990 2000 &acsyr. 2010 )
 
-    %Moe_prop_a( var=PctPop65andOverYears_m_2010_14, mult=100, num=Pop65andOverYears_2010_14, den=TotPop_2010_14, 
-                       num_moe=mPop65andOverYears_2010_14, den_moe=mTotPop_2010_14 );
+    %Moe_prop_a( var=PctPop65andOverYears_m_&acsyr., mult=100, num=Pop65andOverYears_&acsyr., den=TotPop_&acsyr., 
+                       num_moe=mPop65andOverYears_&acsyr., den_moe=mTotPop_&acsyr. );
     
     if Pop65andOverYears_1980 > 0 then PctChgPop65andOverYear_1980_1990 = %pctchg( Pop65andOverYears_1980, Pop65andOverYears_1990 );
     if Pop65andOverYears_1990 > 0 then PctChgPop65andOverYear_1990_2000 = %pctchg( Pop65andOverYears_1990, Pop65andOverYears_2000 );
-    if Pop65andOverYears_2000 > 0 then PctChgPop65andOverY_2000_2010_14 = %pctchg( Pop65andOverYears_2000, Pop65andOverYears_2010_14 );
+    if Pop65andOverYears_2000 > 0 then PctChgPop65andOverY_2000_&acsyr. = %pctchg( Pop65andOverYears_2000, Pop65andOverYears_&acsyr. );
     if Pop65andOverYears_2000 > 0 then PctChgPop65andOverYear_2000_2010 = %pctchg( Pop65andOverYears_2000, Pop65andOverYears_2010 );
         
     label
       PctChgPop65andOverYear_1980_1990 = "% change senior population, 1980 to 1990"
       PctChgPop65andOverYear_1990_2000 = "% change senior population, 1990 to 2000"
-      PctChgPop65andOverY_2000_2010_14 = "% change senior population, 2000 to 2010-2014"
+      PctChgPop65andOverY_2000_&acsyr. = "% change senior population, 2000 to &acs_start_yr.-&acs_end_yr."
       PctChgPop65andOverYear_2000_2010 = "% change senior population, 2000 to 2010"
     ;
 
     %Pct_calc( var=PctForeignBorn, label=% foreign born, num=PopForeignBorn, den=TotPop, years=1980 1990 2000 )
-    %Pct_calc( var=PctForeignBorn, label=% foreign born, num=PopForeignBorn, den=TotPop_tr, years=2010_14 )
+    %Pct_calc( var=PctForeignBorn, label=% foreign born, num=PopForeignBorn, den=TotPop_tr, years=&acsyr. )
 
-    %Moe_prop_a( var=PctForeignBorn_m_2010_14, mult=100, num=PopForeignBorn_2010_14, den=TotPop_tr_2010_14, 
-                       num_moe=mPopForeignBorn_2010_14, den_moe=mTotPop_tr_2010_14 );
+    %Moe_prop_a( var=PctForeignBorn_m_&acsyr., mult=100, num=PopForeignBorn_&acsyr., den=TotPop_tr_&acsyr., 
+                       num_moe=mPopForeignBorn_&acsyr., den_moe=mTotPop_tr_&acsyr. );
 
     %Pct_calc( var=PctSameHouse5YearsAgo, label=% same house 5 years ago, num=PopSameHouse5YearsAgo, den=Pop5andOverYears, years=1990 2000 )
     
     ** Population by Race/Ethnicity **;
     
-    %Pct_calc( var=PctBlackNonHispBridge, label=% black non-Hispanic, num=PopBlackNonHispBridge, den=PopWithRace, years=1990 2000 2010_14 2010 )
-    %Pct_calc( var=PctWhiteNonHispBridge, label=% white non-Hispanic, num=PopWhiteNonHispBridge, den=PopWithRace, years=1990 2000 2010_14 2010 )
-    %Pct_calc( var=PctHisp, label=% Hispanic, num=PopHisp, den=PopWithRace, years=1990 2000 2010_14 2010 )
-    %Pct_calc( var=PctAsianPINonHispBridge, label=% Asian/P.I. non-Hispanic, num=PopAsianPINonHispBridge, den=PopWithRace, years=1990 2000 2010_14 2010 )
+    %Pct_calc( var=PctBlackNonHispBridge, label=% black non-Hispanic, num=PopBlackNonHispBridge, den=PopWithRace, years=1990 2000 &acsyr. 2010 )
+    %Pct_calc( var=PctWhiteNonHispBridge, label=% white non-Hispanic, num=PopWhiteNonHispBridge, den=PopWithRace, years=1990 2000 &acsyr. 2010 )
+    %Pct_calc( var=PctHisp, label=% Hispanic, num=PopHisp, den=PopWithRace, years=1990 2000 &acsyr. 2010 )
+    %Pct_calc( var=PctAsianPINonHispBridge, label=% Asian/P.I. non-Hispanic, num=PopAsianPINonHispBridge, den=PopWithRace, years=1990 2000 &acsyr. 2010 )
     
     %Pct_calc( var=PctOtherRaceNonHispBridge, label=% other race non-Hispanic, num=PopOtherRaceNonHispBridge, den=PopWithRace, years=1990 2000 2010 )
-    %Pct_calc( var=PctOtherRaceNonHispBridg, label=% other race non-Hispanic, num=PopOtherRaceNonHispBridg, den=PopWithRace, years=2010_14 )
+    %Pct_calc( var=PctOtherRaceNonHispBridg, label=% other race non-Hispanic, num=PopOtherRaceNonHispBridg, den=PopWithRace, years=&acsyr. )
 
     ** Family Risk Factors **;
 
-    %Pct_calc( var=PctPoorPersons, label=Poverty rate (%), num=PopPoorPersons, den=PersonsPovertyDefined, years=1980 1990 2000 2010_14 )
-    %Pct_calc( var=PctUnemployed, label=Unemployment rate (%), num=PopUnemployed, den=PopInCivLaborForce, years=1980 1990 2000 2010_14 )
-    %Pct_calc( var=Pct16andOverEmployed, label=% pop. 16+ yrs. employed, num=Pop16andOverEmployed, den=Pop16andOverYears, years=1980 1990 2000 2010_14 )
-    %Pct_calc( var=Pct25andOverWoutHS, label=% persons without HS diploma, num=Pop25andOverWoutHS, den=Pop25andOverYears, years=1980 1990 2000 2010_14 )
-    %Pct_calc( var=PctFamiliesOwnChildrenFH, label=% female-headed families with children, num=NumFamiliesOwnChildrenFH, den=NumFamiliesOwnChildren, years=1990 2000 2010_14 )
+    %Pct_calc( var=PctPoorPersons, label=Poverty rate (%), num=PopPoorPersons, den=PersonsPovertyDefined, years=1980 1990 2000 &acsyr. )
+    %Pct_calc( var=PctUnemployed, label=Unemployment rate (%), num=PopUnemployed, den=PopInCivLaborForce, years=1980 1990 2000 &acsyr. )
+    %Pct_calc( var=Pct16andOverEmployed, label=% pop. 16+ yrs. employed, num=Pop16andOverEmployed, den=Pop16andOverYears, years=1980 1990 2000 &acsyr. )
+    %Pct_calc( var=Pct25andOverWoutHS, label=% persons without HS diploma, num=Pop25andOverWoutHS, den=Pop25andOverYears, years=1980 1990 2000 &acsyr. )
+    %Pct_calc( var=PctFamiliesOwnChildrenFH, label=% female-headed families with children, num=NumFamiliesOwnChildrenFH, den=NumFamiliesOwnChildren, years=1990 2000 &acsyr. )
     
-    %Moe_prop_a( var=PctPoorPersons_m_2010_14, mult=100, num=PopPoorPersons_2010_14, den=PersonsPovertyDefined_2010_14, 
-                       num_moe=mPopPoorPersons_2010_14, den_moe=mPersonsPovertyDefined_2010_14 );
+    %Moe_prop_a( var=PctPoorPersons_m_&acsyr., mult=100, num=PopPoorPersons_&acsyr., den=PersonsPovertyDefined_&acsyr., 
+                       num_moe=mPopPoorPersons_&acsyr., den_moe=mPersonsPovertyDefined_&acsyr. );
     
-    %Moe_prop_a( var=PctUnemployed_m_2010_14, mult=100, num=PopUnemployed_2010_14, den=PopInCivLaborForce_2010_14, 
-                       num_moe=mPopUnemployed_2010_14, den_moe=mPopInCivLaborForce_2010_14 );
+    %Moe_prop_a( var=PctUnemployed_m_&acsyr., mult=100, num=PopUnemployed_&acsyr., den=PopInCivLaborForce_&acsyr., 
+                       num_moe=mPopUnemployed_&acsyr., den_moe=mPopInCivLaborForce_&acsyr. );
     
-    %Moe_prop_a( var=Pct16andOverEmployed_m_2010_14, mult=100, num=Pop16andOverEmployed_2010_14, den=Pop16andOverYears_2010_14, 
-                       num_moe=mPop16andOverEmployed_2010_14, den_moe=mPop16andOverYears_2010_14 );
+    %Moe_prop_a( var=Pct16andOverEmployed_m_&acsyr., mult=100, num=Pop16andOverEmployed_&acsyr., den=Pop16andOverYears_&acsyr., 
+                       num_moe=mPop16andOverEmployed_&acsyr., den_moe=mPop16andOverYears_&acsyr. );
     
-    %Moe_prop_a( var=Pct25andOverWoutHS_m_2010_14, mult=100, num=Pop25andOverWoutHS_2010_14, den=Pop25andOverYears_2010_14, 
-                       num_moe=mPop25andOverWoutHS_2010_14, den_moe=mPop25andOverYears_2010_14 );
+    %Moe_prop_a( var=Pct25andOverWoutHS_m_&acsyr., mult=100, num=Pop25andOverWoutHS_&acsyr., den=Pop25andOverYears_&acsyr., 
+                       num_moe=mPop25andOverWoutHS_&acsyr., den_moe=mPop25andOverYears_&acsyr. );
     
-    %Moe_prop_a( var=PctFamiliesOwnChildFH_m_2010_14, mult=100, num=NumFamiliesOwnChildrenFH_2010_14, den=NumFamiliesOwnChildren_2010_14, 
-                       num_moe=mNumFamiliesOwnChildFH_2010_14, den_moe=mNumFamiliesOwnChildren_2010_14 );
+    %Moe_prop_a( var=PctFamiliesOwnChildFH_m_&acsyr., mult=100, num=NumFamiliesOwnChildrenFH_&acsyr., den=NumFamiliesOwnChildren_&acsyr., 
+                       num_moe=mNumFamiliesOwnChildFH_&acsyr., den_moe=mNumFamiliesOwnChildren_&acsyr. );
     
     ** Isolation Indicators **;
     
-    %Pct_calc( var=PctHshldPhone, label=% HHs with a phone, num=NumHshldPhone, den=NumOccupiedHsgUnits, years=2000 2010_14 )
-    %Pct_calc( var=PctHshldCar, label=% HHs with a car, num=NumHshldCar, den=NumOccupiedHsgUnits, years=2000 2010_14 )
+    %Pct_calc( var=PctHshldPhone, label=% HHs with a phone, num=NumHshldPhone, den=NumOccupiedHsgUnits, years=2000 &acsyr. )
+    %Pct_calc( var=PctHshldCar, label=% HHs with a car, num=NumHshldCar, den=NumOccupiedHsgUnits, years=2000 &acsyr. )
     
-    %Moe_prop_a( var=PctHshldPhone_m_2010_14, mult=100, num=NumHshldPhone_2010_14, den=NumOccupiedHsgUnits_2010_14, 
-                       num_moe=mNumHshldPhone_2010_14, den_moe=mNumOccupiedHsgUnits_2010_14 );
+    %Moe_prop_a( var=PctHshldPhone_m_&acsyr., mult=100, num=NumHshldPhone_&acsyr., den=NumOccupiedHsgUnits_&acsyr., 
+                       num_moe=mNumHshldPhone_&acsyr., den_moe=mNumOccupiedHsgUnits_&acsyr. );
     
-    %Moe_prop_a( var=PctHshldCar_m_2010_14, mult=100, num=NumHshldCar_2010_14, den=NumOccupiedHsgUnits_2010_14, 
-                       num_moe=mNumHshldCar_2010_14, den_moe=mNumOccupiedHsgUnits_2010_14 );
+    %Moe_prop_a( var=PctHshldCar_m_&acsyr., mult=100, num=NumHshldCar_&acsyr., den=NumOccupiedHsgUnits_&acsyr., 
+                       num_moe=mNumHshldCar_&acsyr., den_moe=mNumOccupiedHsgUnits_&acsyr. );
     
    ** Child Well-Being Indicators **;
     
-    %Pct_calc( var=PctPoorChildren, label=% children in poverty, num=PopPoorChildren, den=ChildrenPovertyDefined, years=1990 2000 2010_14 )
+    %Pct_calc( var=PctPoorChildren, label=% children in poverty, num=PopPoorChildren, den=ChildrenPovertyDefined, years=1990 2000 &acsyr. )
     
-    %Moe_prop_a( var=PctPoorChildren_m_2010_14, mult=100, num=PopPoorChildren_2010_14, den=ChildrenPovertyDefined_2010_14, 
-                       num_moe=mPopPoorChildren_2010_14, den_moe=mChildrenPovertyDefined_2010_14 );
+    %Moe_prop_a( var=PctPoorChildren_m_&acsyr., mult=100, num=PopPoorChildren_&acsyr., den=ChildrenPovertyDefined_&acsyr., 
+                       num_moe=mPopPoorChildren_&acsyr., den_moe=mChildrenPovertyDefined_&acsyr. );
     
     %Pct_calc( var=Pct_births_low_wt, label=% low weight births (under 5.5 lbs), num=Births_low_wt, den=Births_w_weight, from=&births_start_yr, to=&births_end_yr )
     %Pct_calc( var=Pct_births_teen, label=% births to teen mothers, num=Births_teen, den=Births_w_age, from=&births_start_yr, to=&births_end_yr )
     
 	 ** Elderly Well-Being Indicators **;
     
-    %Pct_calc( var=PctPoorElderly, label=% seniors in poverty, num=PopPoorElderly, den=ElderlyPovertyDefined, years=1990 2000 2010_14 )
+    %Pct_calc( var=PctPoorElderly, label=% seniors in poverty, num=PopPoorElderly, den=ElderlyPovertyDefined, years=1990 2000 &acsyr. )
     
-    %Moe_prop_a( var=PctPoorElderly_m_2010_14, mult=100, num=PopPoorElderly_2010_14, den=ElderlyPovertyDefined_2010_14, 
-                       num_moe=mPopPoorElderly_2010_14, den_moe=mElderlyPovertyDefined_2010_14 );
+    %Moe_prop_a( var=PctPoorElderly_m_&acsyr., mult=100, num=PopPoorElderly_&acsyr., den=ElderlyPovertyDefined_&acsyr., 
+                       num_moe=mPopPoorElderly_&acsyr., den_moe=mElderlyPovertyDefined_&acsyr. );
 
     ** Income Conditions **;
     
-    %Pct_calc( var=AvgFamilyIncome, label=Average family income last year ($), num=AggFamilyIncome, den=NumFamilies, mult=1, years=1980 1990 2000 2010_14 )
+    %Pct_calc( var=AvgFamilyIncome, label=Average family income last year ($), num=AggFamilyIncome, den=NumFamilies, mult=1, years=1980 1990 2000 &acsyr. )
     
     %dollar_convert( AvgFamilyIncome_1980, AvgFamilyIncAdj_1980, 1979, &inc_dollar_yr )
     %dollar_convert( AvgFamilyIncome_1990, AvgFamilyIncAdj_1990, 1989, &inc_dollar_yr )
     %dollar_convert( AvgFamilyIncome_2000, AvgFamilyIncAdj_2000, 1999, &inc_dollar_yr )
-    %dollar_convert( AvgFamilyIncome_2010_14, AvgFamilyIncAdj_2010_14, 2012, &inc_dollar_yr )
+    %dollar_convert( AvgFamilyIncome_&acsyr., AvgFamilyIncAdj_&acsyr., &acs_infl_yr., &inc_dollar_yr )
     
     label
       AvgFamilyIncAdj_1980 = "Avg. family income, 1979"
       AvgFamilyIncAdj_1990 = "Avg. family income, 1989"
       AvgFamilyIncAdj_2000 = "Avg. family income, 1999"
-      AvgFamilyIncAdj_2010_14 = "Avg. family income, 2010-14"
+      AvgFamilyIncAdj_&acsyr. = "Avg. family income, &acs_start_yr.-&acs_end_yr."
       ;
       
-    AvgFamilyIncome_m_2010_14 = 
-      %Moe_ratio( num=AggFamilyIncome_2010_14, den=NumFamilies_2010_14, 
-                  num_moe=mAggFamilyIncome_2010_14, den_moe=mNumFamilies_2010_14 );
+    AvgFamilyIncome_m_&acsyr. = 
+      %Moe_ratio( num=AggFamilyIncome_&acsyr., den=NumFamilies_&acsyr., 
+                  num_moe=mAggFamilyIncome_&acsyr., den_moe=mNumFamilies_&acsyr. );
                         
-    %dollar_convert( AvgFamilyIncome_m_2010_14, AvgFamilyIncAdj_m_2010_14, 2012, &inc_dollar_yr )
+    %dollar_convert( AvgFamilyIncome_m_&acsyr., AvgFamilyIncAdj_m_&acsyr., &acs_infl_yr., &inc_dollar_yr )
     
     if AvgFamilyIncAdj_1980 > 0 then PctChgAvgFamilyIncAdj_1980_1990 = %pctchg( AvgFamilyIncAdj_1980, AvgFamilyIncAdj_1990 );
     if AvgFamilyIncAdj_1990 > 0 then PctChgAvgFamilyIncAdj_1990_2000 = %pctchg( AvgFamilyIncAdj_1990, AvgFamilyIncAdj_2000 );
-    if AvgFamilyIncAdj_2000 > 0 then PctChgAvgFamilyIncA_2000_2010_14 = %pctchg( AvgFamilyIncAdj_2000, AvgFamilyIncAdj_2010_14 );
+    if AvgFamilyIncAdj_2000 > 0 then PctChgAvgFamilyIncA_2000_&acsyr. = %pctchg( AvgFamilyIncAdj_2000, AvgFamilyIncAdj_&acsyr. );
     
     label
       PctChgAvgFamilyIncAdj_1980_1990 = "% change in avg. family income, 1980 to 1990"
       PctChgAvgFamilyIncAdj_1990_2000 = "% change in avg. family income, 1990 to 2000"
-      PctChgAvgFamilyIncA_2000_2010_14 = "% change in avg. family income, 2000 to 2010-14"
+      PctChgAvgFamilyIncA_2000_&acsyr. = "% change in avg. family income, &acs_start_yr.-&acs_end_yr."
       ;
     
-    PctChgAvgFamIncA_m_2000_2010_14 = AvgFamilyIncAdj_m_2010_14 / AvgFamilyIncAdj_2000;
+    PctChgAvgFamIncA_m_2000_&acsyr. = AvgFamilyIncAdj_m_&acsyr. / AvgFamilyIncAdj_2000;
     
     ** Public Assistance **;
     
@@ -317,16 +318,16 @@
 
     ** Housing Conditions **;
     
-    %Label_var_years( var=NumOccupiedHsgUnits, label=Occupied housing units, years=1980 1990 2000 2010_14 2010 )
+    %Label_var_years( var=NumOccupiedHsgUnits, label=Occupied housing units, years=1980 1990 2000 &acsyr. 2010 )
 
-    %Pct_calc( var=PctVacantHsgUnitsForRent, label=Rental vacancy rate (%), num=NumVacantHsgUnitsForRent, den=NumRenterHsgUnits, years=1980 1990 2000 2010_14 )
-    %Pct_calc( var=PctOwnerOccupiedHsgUnits, label=Homeownership rate (%), num=NumOwnerOccupiedHsgUnits, den=NumOccupiedHsgUnits, years=1980 1990 2000 2010_14 )
+    %Pct_calc( var=PctVacantHsgUnitsForRent, label=Rental vacancy rate (%), num=NumVacantHsgUnitsForRent, den=NumRenterHsgUnits, years=1980 1990 2000 &acsyr. )
+    %Pct_calc( var=PctOwnerOccupiedHsgUnits, label=Homeownership rate (%), num=NumOwnerOccupiedHsgUnits, den=NumOccupiedHsgUnits, years=1980 1990 2000 &acsyr. )
     
-    %Moe_prop_a( var=PctVacantHUForRent_m_2010_14, mult=100, num=NumVacantHsgUnitsForRent_2010_14, den=NumRenterHsgUnits_2010_14, 
-                       num_moe=mNumVacantHUForRent_2010_14, den_moe=mNumRenterHsgUnits_2010_14 );
+    %Moe_prop_a( var=PctVacantHUForRent_m_&acsyr., mult=100, num=NumVacantHsgUnitsForRent_&acsyr., den=NumRenterHsgUnits_&acsyr., 
+                       num_moe=mNumVacantHUForRent_&acsyr., den_moe=mNumRenterHsgUnits_&acsyr. );
     
-    %Moe_prop_a( var=PctOwnerOccupiedHU_m_2010_14, mult=100, num=NumOwnerOccupiedHsgUnits_2010_14, den=NumOccupiedHsgUnits_2010_14, 
-                       num_moe=mNumOwnerOccupiedHU_2010_14, den_moe=mNumOccupiedHsgUnits_2010_14 );
+    %Moe_prop_a( var=PctOwnerOccupiedHU_m_&acsyr., mult=100, num=NumOwnerOccupiedHsgUnits_&acsyr., den=NumOccupiedHsgUnits_&acsyr., 
+                       num_moe=mNumOwnerOccupiedHU_&acsyr., den_moe=mNumOccupiedHsgUnits_&acsyr. );
     
     ** Housing Market (Single-Family Homes) **;
     
