@@ -201,11 +201,11 @@
 
            put "</div>" NL;
            put "</div>" NL;
-           put "</div>" NL;
+           put "</div>" NL;*/
 
            trigger pre_post;
 
-           put "</body>" NL;*/
+           put "</body>" NL;
      
       end;
 

@@ -38,16 +38,16 @@
 %include "L:\SAS\Inc\StdLocal.sas";
 
 ** Define libraries **;
-%DCData_lib( Profiles, local=y )
-%DCData_lib( Ncdb, local=y )
-%DCData_lib( ACS, local=y )
-%DCData_lib( Vital, local=y )
-%DCData_lib( Hmda, local=y )
-%DCData_lib( Police, local=y )
-%DCData_lib( RealProp, local=y )
-%DCData_lib( TANF, local=y )
-%DCData_lib( ROD, local=y )
-%DCData_lib( Schools, local=y )
+%DCData_lib( Profiles )
+%DCData_lib( Ncdb, local=n )
+%DCData_lib( ACS, local=n )
+%DCData_lib( Vital, local=n )
+%DCData_lib( Hmda, local=n )
+%DCData_lib( Police, local=n )
+%DCData_lib( RealProp, local=n )
+%DCData_lib( TANF, local=n )
+%DCData_lib( ROD, local=n )
+%DCData_lib( Schools, local=n )
 
 ** Create profiles for all geographies **;
 
