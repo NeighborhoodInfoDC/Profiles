@@ -301,7 +301,7 @@
     label
       PctChgAvgFamilyIncAdj_1980_1990 = "% change in avg. family income, 1980 to 1990"
       PctChgAvgFamilyIncAdj_1990_2000 = "% change in avg. family income, 1990 to 2000"
-      PctChgAvgFamilyIncA_2000_&acsyr. = "% change in avg. family income, &acs_start_yr.-&acs_end_yr."
+      PctChgAvgFamilyIncA_2000_&acsyr. = "% change in avg. family income, 2000 to &acs_start_yr.-&acs_end_yr."
       ;
     
     PctChgAvgFamIncA_m_2000_&acsyr. = AvgFamilyIncAdj_m_&acsyr. / AvgFamilyIncAdj_2000;
