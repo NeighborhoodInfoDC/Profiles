@@ -37,6 +37,7 @@
   05/27/16 RP Update with new ACS and Sales data
   07/01/16 RP Update with 2012-2015 crime data
   03/07/17 RP Update with 2011-2015 ACS, 2016 crime, and 2016 sales data. 
+  08/15/17 RP Update with TANF and FS Data through 2016.
 **************************************************************************/
 
 /** Macro Init_nbr_prof_vars - Start Definition **/
@@ -86,7 +87,7 @@
   %let births_start_yr = 1998;
   %let births_end_yr = 2011;
   %let fs_tanf_start_yr = 2000;
-  %let fs_tanf_end_yr = 2015;
+  %let fs_tanf_end_yr = 2016;
   %let rsales_start_yr = 1995;
   %let rsales_end_yr = 2016;
   %let hmda_start_yr = 1997;
